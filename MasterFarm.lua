@@ -1,1 +1,387 @@
-local P=game.Players.LocalPlayer local j=game:GetService("VirtualUser")local Y=game:GetService("ReplicatedStorage")local X=game:GetService("VirtualInputManager")local M=game:GetService("HttpService")local z=game:GetService("RunService")P.Idled:Connect(function()j:CaptureController()j:ClickButton2(Vector2.new())end);(getgenv()).MasterScriptID=tick()local o=(getgenv()).MasterScriptID local function q()if gethui then return gethui()else return game:GetService("CoreGui")end end for P,j in pairs(P.PlayerGui:GetChildren())do if string.match(j.Name,"FarmUI")or string.match(j.Name,"MasterFarmUI")then j:Destroy()end end local S=4294967296 local W=S-1 local function O(P,j)local Y=0 local X=1 while P~=0 or j~=0 do local M=P%2 local z=j%2 local o=((M+z))%2 Y=Y+o*X P=math.floor(P/2)j=math.floor(j/2)X=X*2 end return Y%S end local function V(P,j,Y,...)local X if j then P=P%S j=j%S X=O(P,j)if Y then X=V(X,Y,...)end return X elseif P then return P%S else return 0 end end local function e(P,j,Y,...)local X if j then P=P%S j=j%S X=(((P+j)-O(P,j)))/2 if Y then X=e(X,Y,...)end return X elseif P then return P%S else return W end end local function v(P)return W-P end local function f(P,j)if j<0 then local Y=-j if Y>31 then return 0 end return math.floor((((P%S))%(4294967296))/(2^Y))end return((P*(2^j)))%(4294967296)end local function n(P,j)if j<0 then return f(P,-j)end return math.floor((P%(4294967296))/(2^j))end local function C(P,j)if j>31 or j<-31 then return 0 end return n(P%S,j)end local function D(P,j)P=P%S j=j%32 local Y=e(P,(2^j)-1)return C(P,j)+f(Y,32-j)end local i={1116352408,1899447441;3049323471;3921009573;961987163,1508970993,2453635748;2870763221,3624381080,310598401;607225278,1426881987;1925078388;2162078206;2614888103;3248222580,3835390401,4022224774;264347078;604807628,770255983,1249150122;1555081692,1996064986;2554220882,2821834349,2952996808,3210313671,3336571891;3584528711;113926993;338241895,666307205;773529912,1294757372,1396182291,1695183700,1986661051,2177026350,2456956037,2730485921;2820302411,3259730800;3345764771,3516065817,3600352804;4094571909,275423344;430227734;506948616;659060556,883997877;958139571,1322822218;1537002063,1747873779,1955562222;2024104815;2227730452;2361852424,2428436474,2756734187,3204031479,3329325298}local function K(P)return string.gsub(P,".",function(P)return string.format("%02x",string.byte(P))end)end local function y(P,j)local Y=""for j=1,j,1 do local X=P%256 Y=string.char(X)..Y P=((P-X))/256 end return Y end local function k(P,j)local Y=0 for j=j,j+3,1 do Y=Y*256+string.byte(P,j)end return Y end local function A(P,j)local Y=64-((j+9))%64 j=y(8*j,8)P=P..("\128"..(string.rep("\000",Y)..j))return P end local function p(P)P[1]=1779033703 P[2]=3144134277 P[3]=1013904242 P[4]=2773480762 P[5]=1359893119 P[6]=2600822924 P[7]=528734635 P[8]=1541459225 return P end local function T(P,j,Y)local X={}for Y=1,16,1 do X[Y]=k(P,j+((Y-1))*4)end for P=17,64,1 do local j=X[P-15]local Y=V(D(j,7),D(j,18),C(j,3))j=X[P-2]X[P]=((((X[P-16]+Y)+X[P-7])+V(D(j,17),D(j,19),C(j,10))))%S end local M=Y[1]local z=Y[2]local o=Y[3]local q=Y[4]local W=Y[5]local O=Y[6]local f=Y[7]local n=Y[8]for P=1,64,1 do local j=V(D(M,2),D(M,13),D(M,22))local Y=V(e(M,z),e(M,o),e(z,o))local C=((j+Y))%S local K=V(D(W,6),D(W,11),D(W,25))local y=V(e(W,O),e(v(W),f))local k=(((((n+K)+y)+i[P])+X[P]))%S n=f f=O O=W W=((q+k))%S q=o o=z z=M M=((k+C))%S end Y[1]=((Y[1]+M))%S Y[2]=((Y[2]+z))%S Y[3]=((Y[3]+o))%S Y[4]=((Y[4]+q))%S Y[5]=((Y[5]+W))%S Y[6]=((Y[6]+O))%S Y[7]=((Y[7]+f))%S Y[8]=((Y[8]+n))%S end local function B(P)P=A(P,#P)local j=p({})for Y=1,#P,64 do T(P,Y,j)end return K(y(j[1],4)..(y(j[2],4)..(y(j[3],4)..(y(j[4],4)..(y(j[5],4)..(y(j[6],4)..(y(j[7],4)..y(j[8],4))))))))end local function x(P)return M:JSONEncode(P)end local function c(P)return M:JSONDecode(P)end local G=29478 local a="8078c961-f3e4-426f-be85-90480673ff94"local w=true local l=function(P)pcall(function()(game:GetService("StarterGui")):SetCore("SendNotification",{Title="Platoboost",Text=P;Duration=5})end)end repeat task.wait(1)until game:IsLoaded()local L=false local Z=""local t=0 local F if setclipboard then F=setclipboard else F=toclipboard end local E if request then E=request elseif http_request then E=http_request elseif syn_request then E=syn_request end local d=string.char local U=tostring local R=string.sub local u=os.time local g=math.random local r=math.floor local s pcall(function()s=gethwid end)if not s then s=function()return(game:GetService("Players")).LocalPlayer.UserId end end local I="https://api.platoboost.com"local h=E({Url=I.."/public/connectivity";Method="GET"})if h.StatusCode~=200 and h.StatusCode~=429 then I="https://api.platoboost.net"end local function N()if t+(600)<u()then local P=E({Url=I.."/public/start",Method="POST";Body=x({service=G;identifier=B(U(s()))});Headers={["Content-Type"]="application/json"}})if P.StatusCode==200 then local j=c(P.Body)if j.success==true then Z=j.data.url t=u()return true,Z else l(j.message)return false,j.message end elseif P.StatusCode==429 then local P="you are being rate limited, please wait 20 seconds and try again."l(P)return false,P end local j="Failed to cache link."l(j)return false,j else return true,Z end end N()local function J()local P=""for j=1,16,1 do P=P..d(r(g()*(26))+97)end return P end for P=1,5,1 do local j=J()task.wait(.2)if J()==j then local P="platoboost nonce error."l(P)error(P)end end local function m()local P,j=N()if P then F(j)end end local function H(P)local j=J()local Y=I..("/public/redeem/"..U(G))local X={identifier=B(U(s()));key=P}if w then X.nonce=j end local M=E({Url=Y,Method="POST";Body=x(X);Headers={["Content-Type"]="application/json"}})if M.StatusCode==200 then local P=c(M.Body)if P.success==true then if P.data.valid==true then if w then if P.data.hash==B("true"..("-"..(j..("-"..a))))then return true else l("failed to verify integrity.")return false end else return true end else l("key is invalid.")return false end else if R(P.message,1,27)=="unique constraint violation"then l("you already have an active key, please wait for it to expire before redeeming it.")return false else l(P.message)return false end end elseif M.StatusCode==429 then l("you are being rate limited, please wait 20 seconds and try again.")return false else l("server returned an invalid status code, please try again later.")return false end end local function b(P)if L==true then l("a request is already being sent, please slow down.")return false else L=true end local j=J()local Y=I..("/public/whitelist/"..(U(G)..("?identifier="..(B(U(s()))..("&key="..P)))))if w then Y=Y..("&nonce="..j)end local X=E({Url=Y,Method="GET"})L=false if X.StatusCode==200 then local Y=c(X.Body)if Y.success==true then if Y.data.valid==true then if w then if Y.data.hash==B("true"..("-"..(j..("-"..a))))then return true else l("failed to verify integrity.")return false end else return true end else if R(P,1,4)=="KEY_"then return H(P)else l("key is invalid.")return false end end else l(Y.message)return false end elseif X.StatusCode==429 then l("you are being rate limited, please wait 20 seconds and try again.")return false else l("server returned an invalid status code, please try again later.")return false end end local Q=nil local Py={"https://github.com/biggaboy212/Maclib/releases/latest/download/maclib.txt","https://raw.githubusercontent.com/biggaboy212/Maclib/main/maclib.lua","https://raw.githubusercontent.com/x2Swiftz/UI-Library/main/maclib.txt"}for P,j in ipairs(Py)do local Y,X=pcall(function()return game:HttpGet(j)end)if Y and(X and not string.match(X,"404: Not Found"))then Q=X break end end if not Q then P:Kick("Maclib library not found!")return end local jy=(loadstring(Q))()local Yy="MasterFarm_Key.txt"local Xy=""if readfile and(isfile and isfile(Yy))then pcall(function()Xy=readfile(Yy)end)end;(getgenv()).KeyVerified=false if Xy~=""then if b(Xy)then(getgenv()).KeyVerified=true end end if not(getgenv()).KeyVerified then local P=jy:Window({Title="Master Farm Hub",Subtitle="Key System";Size=UDim2.fromOffset(700,450);Resizable=true,DragSpace=50;Color=Color3.fromRGB(138,43,226)})local j=P:TabGroup()local Y=j:Tab({Name="Authentication";Image="lucide-key"})local X=Y:Section({Side="Left"})X:Button({Name="Get Key (Copies Link)";Callback=function()m()l("Link copied to clipboard!")end})local M=""X:Input({Name="Enter Key";Placeholder="Paste your key here...",Callback=function(P)M=P end})X:Button({Name="Verify Key",Callback=function()if b(M)then if writefile then pcall(function()writefile(Yy,M)end)end;(getgenv()).KeyVerified=true l("Key verified successfully! Loading script...")local P=q()for P,j in pairs(P:GetChildren())do if j:IsA("ScreenGui")then for P,Y in pairs(j:GetDescendants())do if Y:IsA("TextLabel")and((Y.Text=="Key System"or Y.Text=="Authentication"))then j:Destroy()break end end end end else l("Invalid or Expired Key!")end end})repeat task.wait(.5)until(getgenv()).KeyVerified end local My="MasterFarm_Config.json"local zy={oreFarmActive=false,trialFarmActive=false,runeFarmActive=false,autoChestActive=false;autoBossActive=false,autoStarsActive=false;indexFarmActive=false,autoNearbyUpgrades=false;trialDifficulty="Medium",trialWaveLimit=50;uiScale=1,afkModeEnabled=false;afkFpsCap=10,normalFpsCap=60;selectedMobNames={};selectedOreNames={};selectedBoards={},myAttackSpeed=.4}local function oy()for P,j in pairs(zy)do(getgenv())[P]=j end if readfile and(isfile and isfile(My))then local P,j=pcall(function()return readfile(My)end)if P then local P=M:JSONDecode(j)for j,Y in pairs(zy)do if P[j]~=nil then(getgenv())[j]=P[j]end end end end end local function qy()local P={}for j,Y in pairs(zy)do P[j]=(getgenv())[j]end if writefile then pcall(function()local j=M:JSONEncode(P)writefile(My,j)end)end end oy()local Sy={};(getgenv()).farmState="IDLE";(getgenv()).savedWorldPos=nil;(getgenv()).runeLocation=nil;(getgenv()).inTrial=false;(getgenv()).starOriginLocation=nil;(getgenv()).isCollectingStars=false;(getgenv()).isUpgrading=false;(getgenv()).isSummaryScreenOpen=false local Wy=4000 local Oy=0;(getgenv()).wasInTrialOrLobby=false local function Vy()if(getgenv()).afkModeEnabled then z:Set3dRenderingEnabled(false)if setfpscap then setfpscap((getgenv()).afkFpsCap)end else z:Set3dRenderingEnabled(true)if setfpscap then setfpscap((getgenv()).normalFpsCap)end end end Vy()local ey=jy:Window({Title="Master Farm Hub";Subtitle="Tester Edition",Size=UDim2.fromOffset(868,650),Resizable=true;DragSpace=50,Color=Color3.fromRGB(138,43,226)})local function vy(P)pcall(function()local j=q()for j,Y in pairs(j:GetChildren())do if Y:IsA("ScreenGui")then local j=false for P,Y in pairs(Y:GetDescendants())do if Y:IsA("TextLabel")and((Y.Text=="Master Farm Hub"or Y.Text=="Tester Edition"))then j=true break end end if j then for j,Y in pairs(Y:GetChildren())do if Y:IsA("GuiObject")then local j=Y:FindFirstChildWhichIsA("UIScale")if not j then j=Instance.new("UIScale")j.Parent=Y end j.Scale=P end end end end end end)end task.spawn(function()task.wait(2)vy((getgenv()).uiScale)end)local function fy(P,j)local Y={}if type(j)=="table"then for P,j in pairs(j)do if type(P)=="number"and type(j)=="string"then Y[j]=true elseif type(P)=="string"and j==true then Y[P]=true end end end;(getgenv())[P]=Y qy()end local ny=ey:TabGroup()local Cy=ny:Tab({Name="Combat & Farm",Image="lucide-swords"})local Dy=ny:Tab({Name="Collectors",Image="lucide-box"})local iy=ny:Tab({Name="Upgrades";Image="lucide-zap"})local Ky=ny:Tab({Name="Misc",Image="lucide-settings"})local yy={"Goblin";"Skeleton";"Orc";"Pirate";"Ninja","Warrior";"Pirate Captain","Samurai";"Pirate Admiral";"Samurai Master";"Dark Knight","Dark Commander"}local ky={}for P,j in ipairs(yy)do ky[string.lower(j)]=P end local Ay=Cy:Section({Side="Left"})Ay:Slider({Name="Trial Hit & Run Delay (40 = 0.4s)",Default=math.floor((((getgenv()).myAttackSpeed or.4))*100),Minimum=1,Maximum=200;Step=1,DisplayMethod="Value";Callback=function(P)(getgenv()).myAttackSpeed=tonumber(P)/100 qy()end})Ay:Toggle({Name="Trial Farm (Auto Join/Leave)",Default=(getgenv()).trialFarmActive,Callback=function(P)(getgenv()).trialFarmActive=P qy()end})Ay:Dropdown({Name="Trial Difficulty";Options={"Easy","Medium";"Hard"};Default=(getgenv()).trialDifficulty,Callback=function(P)(getgenv()).trialDifficulty=P qy()end})Ay:Slider({Name="Leave Wave Limit",Default=(getgenv()).trialWaveLimit;Minimum=1;Maximum=1000;Step=1;DisplayMethod="Value";Callback=function(P)(getgenv()).trialWaveLimit=math.clamp(math.floor(tonumber(P)or 50),1,1000)qy()end})Ay:Toggle({Name="Lock Position (Save Location)",Default=(getgenv()).runeFarmActive,Callback=function(j)(getgenv()).runeFarmActive=j if j then local j=P.Character and P.Character:FindFirstChild("HumanoidRootPart")if j then(getgenv()).runeLocation=j.CFrame end end qy()end})local py=Cy:Section({Side="Right"})py:Toggle({Name="Index Farm (Selectable Mobs)";Default=(getgenv()).indexFarmActive;Callback=function(P)(getgenv()).indexFarmActive=P qy()end})local Ty={}if type((getgenv()).selectedMobNames)=="table"then for P,j in pairs((getgenv()).selectedMobNames)do if j==true and type(P)=="string"then table.insert(Ty,P)end end end py:Dropdown({Name="Select Specific Mobs";Multi=true;Options=yy,Default=Ty;Callback=function(P)fy("selectedMobNames",P)end})local By=Dy:Section({Side="Left"})By:Toggle({Name="Ore/Stone Farm (World 2)";Default=(getgenv()).oreFarmActive;Callback=function(P)(getgenv()).oreFarmActive=P qy()end})By:Toggle({Name="Auto Chest/Capsule & Pet Summary";Default=(getgenv()).autoChestActive,Callback=function(P)(getgenv()).autoChestActive=P qy()end})By:Toggle({Name="Auto Realm 3 Boss Spawn",Default=(getgenv()).autoBossActive;Callback=function(P)(getgenv()).autoBossActive=P qy()end})By:Toggle({Name="Auto Stars (Safe Glide)";Default=(getgenv()).autoStarsActive;Callback=function(j)(getgenv()).autoStarsActive=j if j then local j=P.Character and P.Character:FindFirstChild("HumanoidRootPart")if j then(getgenv()).starOriginLocation=j.CFrame end end;(getgenv()).lastStarCollectTime=tick()-60 qy()end})local xy=Dy:Section({Side="Right"})local cy={"Stone";"Coal","Copper";"Iron";"Silver";"Gold";"Platinum";"Titanium","Uranium";"Cobalt";"Palladium";"Ruby";"Aetherite","Celestium","Voidsteel","Infinity";"Empyrium";"Frostium";"Dragonvein"}local Gy={}if type((getgenv()).selectedOreNames)=="table"then for P,j in pairs((getgenv()).selectedOreNames)do if j==true and type(P)=="string"then table.insert(Gy,P)end end end xy:Dropdown({Name="Select Specific Ores",Multi=true,Options=cy;Default=Gy,Callback=function(P)fy("selectedOreNames",P)end})local ay=iy:Section({Side="Left"})local wy=iy:Section({Side="Right"})ay:Toggle({Name="Enable Auto Board Glide (Every 60s)";Default=(getgenv()).autoNearbyUpgrades,Callback=function(P)(getgenv()).autoNearbyUpgrades=P qy()end})local ly={"Stars","Space Points","Moon","Planets","Knowledge","Alien Cash","Blackholes","Meat";"Bones";"Skulls";"Gems","Runes"}local Ly={}if type((getgenv()).selectedBoards)=="table"then for P,j in pairs((getgenv()).selectedBoards)do if j==true and type(P)=="string"then table.insert(Ly,P)end end end wy:Dropdown({Name="Select Specific Boards to Glide";Multi=true,Options=ly,Default=Ly;Callback=function(P)fy("selectedBoards",P)end})local Zy=""wy:Input({Name="Add Custom Board Target";Placeholder="e.g. Skulls, Magic...",Callback=function(P)Zy=P end})wy:Button({Name="Add Board to Target List";Callback=function()if Zy~=""then if not(getgenv()).selectedBoards then(getgenv()).selectedBoards={}end;(getgenv()).selectedBoards[string.lower(Zy)]=true qy()end end})local ty=Ky:Section({Side="Left"})ty:Toggle({Name="AFK Mode (Disable 3D Render)",Default=(getgenv()).afkModeEnabled,Callback=function(P)(getgenv()).afkModeEnabled=P qy()Vy()end})ty:Slider({Name="AFK FPS Cap";Default=(getgenv()).afkFpsCap,Minimum=1,Maximum=60,Step=1,DisplayMethod="Value";Callback=function(P)(getgenv()).afkFpsCap=math.clamp(math.floor(tonumber(P)or 10),1,60)qy()if(getgenv()).afkModeEnabled and setfpscap then setfpscap((getgenv()).afkFpsCap)end end})ty:Slider({Name="Normal FPS Cap",Default=(getgenv()).normalFpsCap;Minimum=30;Maximum=240;Step=1;DisplayMethod="Value",Callback=function(P)(getgenv()).normalFpsCap=math.clamp(math.floor(tonumber(P)or 60),30,240)qy()if not(getgenv()).afkModeEnabled and setfpscap then setfpscap((getgenv()).normalFpsCap)end end})ty:Slider({Name="Script Menu Size (%)",Default=math.floor((getgenv()).uiScale*100);Minimum=50,Maximum=150,Step=1,DisplayMethod="Value",Callback=function(P)(getgenv()).uiScale=math.clamp(math.floor(tonumber(P)or 100),50,150)/100 qy()vy((getgenv()).uiScale)end})ty:Button({Name="Rejoin Server";Callback=function()(game:GetService("TeleportService")):TeleportToPlaceInstance(game.PlaceId,game.JobId,P)end})ty:Button({Name="Destroy UI";Callback=function()(getgenv()).MasterScriptID=0 z:Set3dRenderingEnabled(true)if setfpscap then setfpscap((getgenv()).normalFpsCap)end local P=q()for P,j in pairs(P:GetChildren())do if j:IsA("ScreenGui")then for P,Y in pairs(j:GetDescendants())do if Y:IsA("TextLabel")and((Y.Text=="Master Farm Hub"or Y.Text=="Tester Edition"))then j:Destroy()break end end end end end})local function Fy(P)local j=P while j and j:IsA("GuiObject")do if not j.Visible then return false end j=j.Parent end return true end local function Ey(P)if not P then return""end local j=string.gsub(P,"<[^>]+>","")local Y=string.gsub(j,"^%s*(.-)%s*$","%1")return string.lower(Y)end local function dy(P)if not P then return end pcall(function()if getconnections then for P,j in pairs(getconnections(P.MouseButton1Click))do j:Fire()end for P,j in pairs(getconnections(P.MouseButton1Down))do j:Fire()end for P,j in pairs(getconnections(P.Activated))do j:Fire()end end if firesignal then pcall(function()firesignal(P.MouseButton1Click)end)pcall(function()firesignal(P.Activated)end)end local j=P.AbsolutePosition local Y=P.AbsoluteSize if j and(Y and(j.X>0 and j.Y>0))then local M=36 local z=P:FindFirstAncestorWhichIsA("ScreenGui")if z and z.IgnoreGuiInset then M=0 end X:SendMouseButtonEvent(j.X+Y.X/2,(j.Y+Y.Y/2)+M,0,true,game,1)task.wait(.01)X:SendMouseButtonEvent(j.X+Y.X/2,(j.Y+Y.Y/2)+M,0,false,game,1)end end)end local function Uy()pcall(function()local P=workspace.CurrentCamera local j=P.ViewportSize local Y=j.X/2 local M=j.Y/2 X:SendMouseButtonEvent(Y,M,0,true,game,1)task.wait(.05)X:SendMouseButtonEvent(Y,M,0,false,game,1)end)end local function Ry(P)if not P or not P.Parent then return true end if not P:IsDescendantOf(workspace)then return true end local j=P:FindFirstChild("MobCharacter")or P local Y=j:FindFirstChildWhichIsA("Humanoid")if Y and Y.Health<=0 then return true end if Y and Y:GetState()==Enum.HumanoidStateType.Dead then return true end local X=P:GetAttribute("Health")or j:GetAttribute("Health")if X and(tonumber(X)and tonumber(X)<=0)then return true end local M=P:GetAttribute("Dead")or P:GetAttribute("IsDead")or j:GetAttribute("Dead")or j:GetAttribute("IsDead")if M==true then return true end if not j:FindFirstChild("HumanoidRootPart")then return true end local z=j:FindFirstChild("Head")or j:FindFirstChild("Torso")or j:FindFirstChild("UpperTorso")if z and(z:IsA("BasePart")and z.Transparency>=1)then return true end for P,j in pairs(P:GetDescendants())do if j:IsA("BillboardGui")then if j.Enabled~=false then for P,j in pairs(j:GetDescendants())do if j:IsA("TextLabel")then if j.Visible~=false then local P=j.Text if j.ContentText and j.ContentText~=""then P=j.ContentText end if P and P~=""then local j=Ey(P)if string.find(j,"respawn")then return true end local Y=string.match(j,"^0%.?0*%a*%s*/")if Y then return true end end end end end end end end return false end local function uy(P)if Ry(P)then return true end local j=P:FindFirstChild("MobCharacter")or P local Y=j:FindFirstChildWhichIsA("Humanoid")if Y and Y.Health<=0 then return true end return false end local function gy(P)if not P or not P.Parent then return true end if not P:IsDescendantOf(workspace)then return true end local j=P:GetAttribute("Health")if j and(tonumber(j)and tonumber(j)<=0)then return true end local Y=P:GetAttribute("Dead")or P:GetAttribute("IsDead")if Y==true then return true end local X=P:FindFirstChild("Head")or P:FindFirstChild("Torso")or P:FindFirstChild("UpperTorso")if X and(X:IsA("BasePart")and X.Transparency>=1)then return true end for P,j in pairs(P:GetDescendants())do if j:IsA("BillboardGui")and j.Enabled~=false then for P,j in pairs(j:GetDescendants())do if j:IsA("TextLabel")and j.Visible~=false then local P=((j.ContentText and j.ContentText~=""))and j.ContentText or j.Text if P and P~=""then local j=Ey(P)if string.find(j,"respawn")then return true end local Y=string.match(j,"^0%.?0*%a*%s*/")if Y then return true end end end end end end return false end local function ry(P)local j=string.lower(P)if(getgenv()).indexFarmActive then for P,Y in pairs((getgenv()).selectedMobNames)do if Y and string.find(j,string.lower(P))then return true end end end return false end local function sy()local P=workspace:FindFirstChild("__GAME_CONTENT")if P and P:FindFirstChild("Mobs")then return P.Mobs end if workspace:FindFirstChild("Mobs")then return workspace.Mobs end return nil end local function Iy()local P={"Hard";"Medium";"Easy"}local j={}if(getgenv()).trialDifficulty then table.insert(j,(getgenv()).trialDifficulty)end for P,Y in ipairs(P)do if Y~=(getgenv()).trialDifficulty then table.insert(j,Y)end end for P,j in ipairs(j)do local Y=workspace:FindFirstChild(j.."TrialRoom",true)or workspace:FindFirstChild("__Trial"..(j.."Room"),true)if Y and(Y:FindFirstChild("Mobs")and#Y.Mobs:GetChildren()>0)then return Y.Mobs end end local Y=workspace:FindFirstChild("__GAME_CONTENT")local X=Y or workspace for P,j in pairs(X:GetDescendants())do if j.Name=="Mobs"and(j.Parent and string.find(string.lower(j.Parent.Name),"trial"))then if#j:GetChildren()>0 then return j end end end return nil end local function hy()local j=sy()local Y=P.Character and P.Character:FindFirstChild("HumanoidRootPart")if not j or not Y then return nil end local X=nil local M=-1 local z=math.huge for P,j in pairs(j:GetChildren())do if j:IsA("Model")and(j.Name and(ry(j.Name)and not Ry(j)))then local P=string.lower(j.Name)local o=""for j=#yy,1,-1 do if string.find(P,string.lower(yy[j]))then o=string.lower(yy[j])break end end local q=ky[o]or 0 if string.find(P,"boss")or string.find(P,"king")or string.find(P,"emperor")or string.find(P,"master")then q=100 end local S=((Y.Position-(j:GetPivot()).Position)).Magnitude if S<Wy then if q>M then M=q z=S X=j elseif q==M then if S<z then z=S X=j end end end end end return X end local function Ny()local j=Iy()local Y=P.Character and P.Character:FindFirstChild("HumanoidRootPart")if not j or not Y then return nil end local X={}for P,j in pairs(j:GetChildren())do if j:IsA("Model")and not uy(j)then table.insert(X,j)end end if#X==0 then return nil end if(getgenv()).currentTrialMob and(getgenv()).currentTrialMob.Parent then for P,j in ipairs(X)do if j==(getgenv()).currentTrialMob then local j=P+1 if j>#X then j=1 end return X[j]end end end local M=X[1]local z=((Y.Position-(M:GetPivot()).Position)).Magnitude for P=2,#X,1 do local j=((Y.Position-(X[P]:GetPivot()).Position)).Magnitude if j<z then z=j M=X[P]end end return M end local Jy={}local my=0 local Hy={}for P,j in ipairs(cy)do Hy[string.lower(j)]=P end local function by()local j=P.Character and P.Character:FindFirstChild("HumanoidRootPart")if not j then return nil end if tick()-my>5 then Jy={}local P=workspace:FindFirstChild("__GAME_CONTENT")or workspace for P,j in pairs(P:GetDescendants())do if j:IsA("Model")and j.Name then local P=string.lower(j.Name)local Y=false for j,X in ipairs(cy)do if string.find(P,string.lower(X))then Y=true break end end if Y or(j:FindFirstChild("Hitbox")and j:GetAttribute("Health"))then table.insert(Jy,j)end end end my=tick()end local Y={}local X=false if(getgenv()).selectedOreNames then for P,j in pairs((getgenv()).selectedOreNames)do if j then htmlSelectedOres=true break end end end for P,j in ipairs(Jy)do if j and j.Parent then local P=string.lower(j.Name)local M=false local z=""for j,Y in ipairs(cy)do if string.find(P,string.lower(Y))then z=string.lower(Y)break end end if X then for j,Y in pairs((getgenv()).selectedOreNames)do if Y and string.find(P,string.lower(j),1,true)then M=true break end end else M=true end if M and(z~=""and not gy(j))then table.insert(Y,j)end end end if#Y==0 then return nil end if(getgenv()).currentOreTarget and(getgenv()).currentOreTarget.Parent then for P,j in ipairs(Y)do if j==(getgenv()).currentOreTarget then local j=P+1 if j>#Y then j=1 end return Y[j]end end end local M=Y[1]local z=((j.Position-(M:GetPivot()).Position)).Magnitude for P=2,#Y,1 do local X=((j.Position-(Y[P]:GetPivot()).Position)).Magnitude if X<z then z=X M=Y[P]end end return M end local function Qy()local j={}local Y=workspace:FindFirstChild("__GAME_CONTENT")local X=Y and((Y:FindFirstChild("Stars")or Y:FindFirstChild("Drops")))or workspace local M=P.Character and P.Character:FindFirstChild("HumanoidRootPart")for P,Y in pairs(X:GetDescendants())do if Y:IsA("BillboardGui")then local P=false for j,Y in pairs(Y:GetDescendants())do if Y:IsA("TextLabel")and Y.Text then local j=Ey(Y.Text)if string.find(j,"upgrade")or string.find(j,"buy")or string.find(j,"max")then P=false break end if string.find(j,"star")and string.find(j,"%+")then P=true end end end if P then local P=((Y.Parent and((Y.Parent:IsA("BasePart")or Y.Parent:IsA("Model")))))and Y.Parent or Y.Adornee if P and not P:GetAttribute("CollectedByScript")then local Y=P:IsA("Model")and(P:GetPivot()).Position or P.Position if M and((M.Position-Y)).Magnitude<Wy then table.insert(j,P)end end end end end return j end;(getgenv()).lastStarCollectTime=tick()task.spawn(function()while task.wait(1)do if(getgenv()).MasterScriptID~=o then break end if(getgenv()).autoStarsActive and(tick()-(getgenv()).lastStarCollectTime>=60)then local j=P.Character and P.Character:FindFirstChild("HumanoidRootPart")if j then local P=Qy()if#P>0 then(getgenv()).isCollectingStars=true for P,Y in ipairs(P)do if not(getgenv()).autoStarsActive then break end if Y and Y.Parent then Y:SetAttribute("CollectedByScript",true)local P=Y:IsA("Model")and Y:GetPivot()or Y.CFrame while Y and(Y.Parent and((j.Position-P.Position)).Magnitude>5)do if not(getgenv()).autoStarsActive then break end j.CFrame=j.CFrame:Lerp(P,.45)j.Velocity=Vector3.zero task.wait(.05)end end end if(getgenv()).starOriginLocation then while((j.Position-(getgenv()).starOriginLocation.Position)).Magnitude>10 do if not(getgenv()).autoStarsActive then break end j.CFrame=j.CFrame:Lerp((getgenv()).starOriginLocation,.45)j.Velocity=Vector3.zero task.wait(.05)end end;(getgenv()).isCollectingStars=false end;(getgenv()).lastStarCollectTime=tick()end end end end);(getgenv()).lastUpgradeTime=tick()task.spawn(function()while task.wait(1)do if(getgenv()).MasterScriptID~=o then break end local j=(getgenv()).autoNearbyUpgrades local X=false if(getgenv()).selectedBoards then for P,j in pairs((getgenv()).selectedBoards)do if j then X=true break end end end if j and(X and(not(getgenv()).inTrial and not(getgenv()).isCollectingStars))then if tick()-(getgenv()).lastUpgradeTime>60 then(getgenv()).isUpgrading=true local j={}local X={}if P:FindFirstChild("PlayerGui")then for P,j in pairs(P.PlayerGui:GetDescendants())do if j:IsA("SurfaceGui")or j:IsA("BillboardGui")then table.insert(X,j)end end end local M=workspace:FindFirstChild("__GAME_CONTENT")or workspace for P,j in pairs(M:GetDescendants())do if j:IsA("SurfaceGui")or j:IsA("BillboardGui")then table.insert(X,j)end end for P,Y in ipairs(X)do local X=Y.Adornee or Y.Parent if X and X:IsA("BasePart")then local P=false local M=""for P,j in pairs(Y:GetDescendants())do if j:IsA("TextLabel")and string.match(Ey(j.Text),"upgrades")then M=string.gsub(j.Text,"(%s*[Uu]pgrades.*)","")M=string.gsub(M,"^%s*(.-)%s*$","%1")M=string.gsub(M,"%s+","")break end end for j,X in pairs((getgenv()).selectedBoards)do if X then local X=string.gsub(string.lower(j),"%s+","")if M~=""and string.lower(M)==X then P=true break end for Y,X in pairs(Y:GetDescendants())do if X:IsA("TextLabel")and string.find(Ey(X.Text),string.lower(j))then P=true if M==""then M=string.gsub(j,"%s+","")end break end end end if P then break end end if P and M~=""then local P={}for j,Y in pairs(Y:GetDescendants())do if Y:IsA("TextButton")or Y:IsA("ImageButton")then local j=Y:IsA("TextButton")and Y.Text or""local X=Y:FindFirstChildWhichIsA("TextLabel")if X then j=X.Text end local M=Ey(j)local z=string.lower(Y.Name)local o=string.match(M,"max")or string.match(z,"max")local q=string.match(M,"buy")or string.match(z,"buy")if((o or q))and Y.Parent then table.insert(P,{container=Y.Parent;isMax=o})end end end if#P>0 then if not j[X]then j[X]={category=M,frames={}}end for P,Y in ipairs(P)do table.insert(j[X].frames,Y)end end end end end local z=P.Character and P.Character:FindFirstChild("HumanoidRootPart")local o=Y:FindFirstChild("MainRemote",true)if z and o then for P,j in pairs(j)do local Y=P.Position local X=tick()while z and(P.Parent and((z.Position-Y)).Magnitude>12)do if tick()-X>10 then break end local P=((z.Position-Y)).Magnitude if P>.1 then local j=((Y-z.Position)).Unit local X=Y-(j*10)if P>4000 then z.CFrame=CFrame.new(X,Y)else z.CFrame=z.CFrame:Lerp(CFrame.new(X,Y),.45)end end z.Velocity=Vector3.zero task.wait(.05)end if z and(P.Parent and((z.Position-Y)).Magnitude<=15)then local P={}for Y,X in ipairs(j.frames)do local M=X.isMax and"UpgradeUpgradeMax"or"UpgradeUpgrade"for Y,X in pairs(X.container:GetChildren())do if X:IsA("TextLabel")then local Y=X.Text local z=Ey(Y)if Y~=""and(not string.match(Y,"/")and(not string.match(Y,"\226\134\146")and(not string.match(z,"^buy$")and not string.match(z,"^max$"))))then local X=string.gsub(Y,"%s+","")local z=M..("_"..(j.category..("_"..X)))if not P[z]then P[z]=true if o:IsA("RemoteEvent")then o:FireServer(M,j.category,X)elseif o:IsA("RemoteFunction")then task.spawn(function()pcall(function()o:InvokeServer(M,j.category,X)end)end)end end end end end end task.wait(.5)end end end;(getgenv()).isUpgrading=false;(getgenv()).lastUpgradeTime=tick()end end end end)local PU=nil local jU=0 local function YU()if PU and(PU.Parent and Fy(PU))then local P=PU.ContentText~=""and PU.ContentText or PU.Text local j=Ey(P)if string.find(j,"wave")or string.find(j,"enemies left")or string.find(j,"time remaining")or string.find(j,"leave trial")then return true end end if tick()-jU<1 then return(getgenv()).inTrial or false end jU=tick()local j=P:FindFirstChild("PlayerGui")if not j then return false end for P,j in pairs(j:GetChildren())do if j:IsA("ScreenGui")and j.Enabled then for P,j in pairs(j:GetDescendants())do if(j:IsA("TextLabel")or j:IsA("TextButton"))then local P=j.ContentText~=""and j.ContentText or j.Text if P and P~=""then local Y=Ey(P)if(string.find(Y,"wave")and string.find(Y,"enemies"))or string.find(Y,"leave trial")or string.find(Y,"time remaining")then if Fy(j)then PU=j return true end end end end end end end PU=nil return false end local function XU()local j=P:FindFirstChild("PlayerGui")if j then for P,j in pairs(j:GetChildren())do if j:IsA("ScreenGui")and j.Enabled then for P,j in pairs(j:GetDescendants())do if j:IsA("TextLabel")then local P=j.ContentText~=""and j.ContentText or j.Text local Y=Ey(P)local X=string.match(Y,"wave%s*(%d+)")if X then return tonumber(X)or 0 end end end end end end local X=Y:FindFirstChild("TrialsStatus")local M=X and X:FindFirstChild((getgenv()).trialDifficulty)local z=M and M:FindFirstChild("Room")return z and z.Value or 0 end local function MU()local j=P.Character and P.Character:FindFirstChild("HumanoidRootPart")local Y=workspace:FindFirstChild("__Trial"..((getgenv()).trialDifficulty.."Room"),true)if j and Y then local P=Y:IsA("Model")and(Y:GetPivot()).Position or Y.Position return((j.Position-P)).Magnitude<2500 end return false end local function zU()for P,j in pairs(P.PlayerGui:GetDescendants())do if j:IsA("TextButton")and(j.Text and string.match(Ey(j.Text),"leave trial"))then dy(j)elseif j:IsA("TextLabel")and(j.Text and string.match(Ey(j.Text),"leave trial"))then if j.Parent and((j.Parent:IsA("TextButton")or j.Parent:IsA("ImageButton")))then dy(j.Parent)end end end end local function oU()local j=P.Character and P.Character:FindFirstChild("HumanoidRootPart")if not j then return end local Y=MU()and workspace:FindFirstChild("__Trial"..((getgenv()).trialDifficulty.."Room"),true)or workspace:FindFirstChild("__TrialTeleport",true)if Y then local X=Y:FindFirstChild("TouchPart")or Y:FindFirstChildWhichIsA("BasePart")if X then j.CFrame=X.CFrame if firetouchinterest then task.spawn(function()for j=1,15,1 do if not P.Character or not P.Character:FindFirstChild("HumanoidRootPart")then break end firetouchinterest(P.Character.HumanoidRootPart,X,0)task.wait(.05)firetouchinterest(P.Character.HumanoidRootPart,X,1)end end)end end end end task.spawn(function()while task.wait(.2)do if(getgenv()).MasterScriptID~=o then break end local j=YU();(getgenv()).inTrial=j local Y=XU()local X=tonumber(os.date("%M"))local M=(X==29 or X==59 or X==30 or X==0)local z=(X==30 or X==0)local q=P.Character and P.Character:FindFirstChild("HumanoidRootPart")local S=j or MU()if not S and(getgenv()).wasInTrialOrLobby then if(getgenv()).savedWorldPos and q then q.CFrame=(getgenv()).savedWorldPos task.wait(.5)end end;(getgenv()).wasInTrialOrLobby=S if j then if Y>=(getgenv()).trialWaveLimit then(getgenv()).farmState="LEAVING"zU()task.wait(2)else(getgenv()).farmState="FARMING"end elseif(getgenv()).trialFarmActive then if M then if not S and q then if(getgenv()).currentIndexMob or(getgenv()).currentOreTarget or(getgenv()).farmState=="IDLE"then(getgenv()).savedWorldPos=q.CFrame end end if not S then if tick()-Oy>3 then oU()Oy=tick()end else if z then if tick()-Oy>3 then oU()Oy=tick()end else local P=workspace:FindFirstChild("__Trial"..((getgenv()).trialDifficulty.."Room"),true)if q and P then local j=P:IsA("Model")and(P:GetPivot()).Position or P.Position q.CFrame=CFrame.new(j)q.Velocity=Vector3.zero end end end;(getgenv()).farmState="WAITING"else if MU()then if(getgenv()).savedWorldPos and q then q.CFrame=(getgenv()).savedWorldPos task.wait(.5)end else if q then if not(getgenv()).savedWorldPos then(getgenv()).savedWorldPos=q.CFrame end if(getgenv()).currentIndexMob or(getgenv()).currentOreTarget then(getgenv()).savedWorldPos=q.CFrame end end if(getgenv()).runeFarmActive and(getgenv()).runeLocation then(getgenv()).farmState="RUNE_AFK"elseif(getgenv()).oreFarmActive then(getgenv()).farmState="ORE_FARMING"elseif(getgenv()).indexFarmActive then(getgenv()).farmState="FARMING"else(getgenv()).farmState="IDLE"end end end else if not j and not MU()then if q then if not(getgenv()).savedWorldPos then(getgenv()).savedWorldPos=q.CFrame end if(getgenv()).currentIndexMob or(getgenv()).currentOreTarget then(getgenv()).savedWorldPos=q.CFrame end end end if(getgenv()).runeFarmActive and((getgenv()).runeLocation and not j)then(getgenv()).farmState="RUNE_AFK"elseif(getgenv()).oreFarmActive and not j then(getgenv()).farmState="ORE_FARMING"elseif(getgenv()).indexFarmActive and not j then(getgenv()).farmState="FARMING"else(getgenv()).farmState="IDLE"end end end end)local function qU(P)if not(getgenv()).currentIndexMob or Ry((getgenv()).currentIndexMob)then(getgenv()).currentIndexMob=hy()end local j=(getgenv()).currentIndexMob if j and j.Parent then local Y=j:GetPivot()*CFrame.new(0,2,0)local X=((P.Position-Y.Position)).Magnitude if X>4000 then P.CFrame=Y else P.CFrame=P.CFrame:Lerp(Y,.45)end P.Velocity=Vector3.zero end end local function SU(P)if not(getgenv()).currentTrialMob or uy((getgenv()).currentTrialMob)then(getgenv()).currentTrialMob=Ny();(getgenv()).timeOnTrialTarget=nil end local j=(getgenv()).currentTrialMob if j and j.Parent then local Y=j:GetPivot()*CFrame.new(0,2,0)local X=((P.Position-Y.Position)).Magnitude if X>4000 then P.CFrame=Y else P.CFrame=P.CFrame:Lerp(Y,.45)end P.Velocity=Vector3.zero if X<=15 then if not(getgenv()).timeOnTrialTarget then(getgenv()).timeOnTrialTarget=tick()end local P=(getgenv()).myAttackSpeed or.4 if tick()-(getgenv()).timeOnTrialTarget>=P then(getgenv()).currentTrialMob=Ny();(getgenv()).timeOnTrialTarget=nil end else(getgenv()).timeOnTrialTarget=nil end end end local function WU(P)if not(getgenv()).currentOreTarget or gy((getgenv()).currentOreTarget)then(getgenv()).currentOreTarget=by();(getgenv()).timeOnOre=nil end local j=(getgenv()).currentOreTarget if j and j.Parent then local Y=j:GetPivot()*CFrame.new(0,2,0)local X=((P.Position-Y.Position)).Magnitude if X>4000 then P.CFrame=Y else P.CFrame=P.CFrame:Lerp(Y,.45)end P.Velocity=Vector3.zero if X<=15 then if not(getgenv()).timeOnOre then(getgenv()).timeOnOre=tick()end local P=(getgenv()).myAttackSpeed or.4 if tick()-(getgenv()).timeOnOre>=P then(getgenv()).currentOreTarget=by();(getgenv()).timeOnOre=nil end else(getgenv()).timeOnOre=nil end end end task.spawn(function()while task.wait(.01)do if(getgenv()).MasterScriptID~=o then break end if not(getgenv()).isCollectingStars and not(getgenv()).isUpgrading then local j=(getgenv()).farmState local Y=P.Character and P.Character:FindFirstChild("HumanoidRootPart")if Y then if j=="FARMING"then if(getgenv()).inTrial then SU(Y)else qU(Y)end elseif j=="ORE_FARMING"then WU(Y)elseif j=="RUNE_AFK"and(getgenv()).runeLocation then if((Y.Position-(getgenv()).runeLocation.Position)).Magnitude>4000 then Y.CFrame=(getgenv()).runeLocation else Y.CFrame=Y.CFrame:Lerp((getgenv()).runeLocation,.45)end Y.Velocity=Vector3.zero end end end end end)task.spawn(function()while task.wait(.2)do if(getgenv()).MasterScriptID~=o then break end if(getgenv()).autoChestActive then pcall(function()local j=false local Y=false local X=P:FindFirstChild("PlayerGui")if X then for P,X in pairs(X:GetChildren())do if X:IsA("ScreenGui")and X.Enabled then for P,X in pairs(X:GetDescendants())do if X:IsA("TextLabel")or X:IsA("TextButton")then local P=X.Text if X.ContentText and X.ContentText~=""then P=X.ContentText end if P and P~=""then local M=Ey(P)if string.find(M,"click anywhere to close")or string.find(M,"rolled summary")or string.find(M,"tap anywhere")or string.find(M,"continue")then Y=true if Fy(X)then Uy()j=true end elseif string.find(M,"trial chest")or string.find(M,"chest")or string.find(M,"capsule")then if Fy(X)then local P=X if X:IsA("TextLabel")then P=X.Parent end if P and(((P:IsA("ImageButton")or P:IsA("TextButton")))and Fy(P))then dy(P)j=true end end end if((M=="use"or string.find(M,"open")or string.find(M,"bulk use")or string.find(M,"open all")or string.find(M,"open 1")))and Fy(X)then local P=X if X:IsA("TextLabel")then P=X.Parent end if P and(((P:IsA("ImageButton")or P:IsA("TextButton")))and Fy(P))then dy(P)end end end end end end end end;(getgenv()).isSummaryScreenOpen=Y end)end end end)local OU={}local VU=false task.spawn(function()while task.wait(2)do if(getgenv()).MasterScriptID~=o then break end if(getgenv()).autoBossActive then local j=P.Character and P.Character:FindFirstChild("HumanoidRootPart")if j then if not VU then for P,j in pairs(workspace:GetDescendants())do if j:IsA("SurfaceGui")then local P=j:FindFirstChild("Spawn",true)if P and((P:IsA("TextButton")or P:IsA("ImageButton")))then table.insert(OU,{gui=j,btn=P})end end end VU=true end for P,Y in ipairs(OU)do if Y.gui.Parent and Y.btn.Parent then local P=Y.gui.Adornee or Y.gui.Parent if P and(P:IsA("BasePart")and((j.Position-P.Position)).Magnitude<=Wy)then dy(Y.btn)end end end end end end end)
+local player = game.Players.LocalPlayer
+local VirtualUser = game:GetService("VirtualUser")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local VirtualInputManager = game:GetService("VirtualInputManager")
+local HttpService = game:GetService("HttpService")
+local RunService = game:GetService("RunService")
+
+player.Idled:Connect(function()
+    VirtualUser:CaptureController()
+    VirtualUser:ClickButton2(Vector2.new())
+end)
+
+getgenv().MasterScriptID = tick()
+local myScriptID = getgenv().MasterScriptID
+
+local function getUIFolder()
+    if gethui then
+        return gethui()
+    else
+        return game:GetService("CoreGui")
+    end
+end
+
+for _, gui in pairs(player.PlayerGui:GetChildren()) do
+    if string.match(gui.Name, "FarmUI") or string.match(gui.Name, "MasterFarmUI") then
+        gui:Destroy()
+    end
+end
+
+-- ==============================================================
+-- PLATOBOOST & CRYPTO LIBRARY (PROMETHEUS OBFUSCATOR SAFE)
+-- ==============================================================
+local max_a = 4294967296
+local max_b = max_a - 1
+
+local function func_c(d, e)
+    local f = 0
+    local g = 1
+    while d ~= 0 or e ~= 0 do 
+        local h = d % 2
+        local i = e % 2
+        local j = (h + i) % 2
+        f = f + j * g
+        d = math.floor(d / 2)
+        e = math.floor(e / 2)
+        g = g * 2 
+    end
+    return f % max_a 
+end
+
+local function func_k(d, e, l, ...)
+    local m
+    if e then 
+        d = d % max_a
+        e = e % max_a
+        m = func_c(d, e)
+        if l then 
+            m = func_k(m, l, ...) 
+        end
+        return m 
+    elseif d then 
+        return d % max_a 
+    else 
+        return 0 
+    end 
+end
+
+local function func_n(d, e, l, ...)
+    local m
+    if e then 
+        d = d % max_a
+        e = e % max_a
+        m = (d + e - func_c(d, e)) / 2
+        if l then 
+            m = func_n(m, l, ...) 
+        end
+        return m 
+    elseif d then 
+        return d % max_a 
+    else 
+        return max_b 
+    end 
+end
+
+local function func_o(p) 
+    return max_b - p 
+end
+
+local function lshift(d, r)
+    if r < 0 then 
+        local pos_r = -r
+        if pos_r > 31 then return 0 end
+        return math.floor((d % max_a) % (2^32) / (2^pos_r))
+    end
+    return (d * (2^r)) % (2^32) 
+end
+
+local function func_q(d, r)
+    if r < 0 then 
+        return lshift(d, -r) 
+    end
+    return math.floor(d % (2^32) / (2^r))
+end
+
+local function func_s(p, r)
+    if r > 31 or r < -31 then 
+        return 0 
+    end
+    return func_q(p % max_a, r)
+end
+
+local function func_t(p, r)
+    p = p % max_a
+    r = r % 32
+    local u = func_n(p, (2^r) - 1)
+    return func_s(p, r) + lshift(u, 32 - r)
+end
+
+local hash_table = {
+    0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,
+    0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,
+    0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,
+    0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,
+    0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,
+    0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,
+    0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,
+    0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2
+}
+
+local function str_to_hex(x)
+    return string.gsub(x, ".", function(l_val) 
+        return string.format("%02x", string.byte(l_val)) 
+    end)
+end
+
+local function func_y(z, A)
+    local x = ""
+    for idx = 1, A do 
+        local C = z % 256
+        x = string.char(C) .. x
+        z = (z - C) / 256 
+    end
+    return x 
+end
+
+local function func_D(x, B)
+    local A = 0
+    for B_idx = B, B + 3 do 
+        A = A * 256 + string.byte(x, B_idx) 
+    end
+    return A 
+end
+
+local function func_E(F, G)
+    local H = 64 - (G + 9) % 64
+    G = func_y(8 * G, 8)
+    F = F .. "\128" .. string.rep("\0", H) .. G
+    return F 
+end
+
+local function func_I(J)
+    J[1] = 0x6a09e667
+    J[2] = 0xbb67ae85
+    J[3] = 0x3c6ef372
+    J[4] = 0xa54ff53a
+    J[5] = 0x510e527f
+    J[6] = 0x9b05688c
+    J[7] = 0x1f83d9ab
+    J[8] = 0x5be0cd19
+    return J 
+end
+
+local function func_K(F, B_val, J)
+    local L = {}
+    for M = 1, 16 do 
+        L[M] = func_D(F, B_val + (M - 1) * 4) 
+    end
+    for M = 17, 64 do 
+        local N = L[M - 15]
+        local O = func_k(func_t(N, 7), func_t(N, 18), func_s(N, 3))
+        N = L[M - 2]
+        L[M] = (L[M - 16] + O + L[M - 7] + func_k(func_t(N, 17), func_t(N, 19), func_s(N, 10))) % max_a 
+    end
+    
+    local d = J[1]
+    local e = J[2]
+    local l = J[3]
+    local P = J[4]
+    local Q = J[5]
+    local R = J[6]
+    local S_val = J[7]
+    local T = J[8]
+    
+    for idx = 1, 64 do 
+        local O = func_k(func_t(d, 2), func_t(d, 13), func_t(d, 22))
+        local U = func_k(func_n(d, e), func_n(d, l), func_n(e, l))
+        local V = (O + U) % max_a
+        local W = func_k(func_t(Q, 6), func_t(Q, 11), func_t(Q, 25))
+        local X = func_k(func_n(Q, R), func_n(func_o(Q), S_val))
+        local Y = (T + W + X + hash_table[idx] + L[idx]) % max_a
+        
+        T = S_val
+        S_val = R
+        R = Q
+        Q = (P + Y) % max_a
+        P = l
+        l = e
+        e = d
+        d = (Y + V) % max_a 
+    end
+    
+    J[1] = (J[1] + d) % max_a
+    J[2] = (J[2] + e) % max_a
+    J[3] = (J[3] + l) % max_a
+    J[4] = (J[4] + P) % max_a
+    J[5] = (J[5] + Q) % max_a
+    J[6] = (J[6] + R) % max_a
+    J[7] = (J[7] + S_val) % max_a
+    J[8] = (J[8] + T) % max_a
+end
+
+local function lDigest(F)
+    F = func_E(F, #F)
+    local J = func_I({})
+    for idx = 1, #F, 64 do 
+        func_K(F, idx, J) 
+    end
+    return str_to_hex(func_y(J[1], 4) .. func_y(J[2], 4) .. func_y(J[3], 4) .. func_y(J[4], 4) .. func_y(J[5], 4) .. func_y(J[6], 4) .. func_y(J[7], 4) .. func_y(J[8], 4))
+end
+
+local function lEncode(tbl) 
+    return HttpService:JSONEncode(tbl) 
+end
+
+local function lDecode(str) 
+    return HttpService:JSONDecode(str) 
+end
+
+local service = 29478
+local secret = "8078c961-f3e4-426f-be85-90480673ff94"
+local useNonce = true
+
+local onMessage = function(message) 
+    pcall(function()
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "Platoboost",
+            Text = message,
+            Duration = 5
+        })
+    end)
+end
+
+repeat task.wait(1) until game:IsLoaded()
+
+local requestSending = false
+local cachedLink = ""
+local cachedTime = 0
+
+local fSetClipboard
+if setclipboard then fSetClipboard = setclipboard else fSetClipboard = toclipboard end
+
+local fRequest
+if request then fRequest = request elseif http_request then fRequest = http_request elseif syn_request then fRequest = syn_request end
+
+local fStringChar = string.char
+local fToString = tostring
+local fStringSub = string.sub
+local fOsTime = os.time
+local fMathRandom = math.random
+local fMathFloor = math.floor
+
+local fGetHwid
+pcall(function() fGetHwid = gethwid end)
+if not fGetHwid then 
+    fGetHwid = function() return game:GetService("Players").LocalPlayer.UserId end 
+end
+
+local host = "https://api.platoboost.com"
+local hostResponse = fRequest({ Url = host .. "/public/connectivity", Method = "GET" })
+if hostResponse.StatusCode ~= 200 and hostResponse.StatusCode ~= 429 then
+    host = "https://api.platoboost.net"
+end
+
+local function cacheLink()
+    if cachedTime + (10 * 60) < fOsTime() then
+        local response = fRequest({
+            Url = host .. "/public/start",
+            Method = "POST",
+            Body = lEncode({ service = service, identifier = lDigest(fToString(fGetHwid())) }),
+            Headers = { ["Content-Type"] = "application/json" }
+        })
+        if response.StatusCode == 200 then
+            local decoded = lDecode(response.Body)
+            if decoded.success == true then
+                cachedLink = decoded.data.url
+                cachedTime = fOsTime()
+                return true, cachedLink
+            else
+                onMessage(decoded.message)
+                return false, decoded.message
+            end
+        elseif response.StatusCode == 429 then
+            local msg = "you are being rate limited, please wait 20 seconds and try again."
+            onMessage(msg) 
+            return false, msg
+        end
+        local msg = "Failed to cache link."
+        onMessage(msg) 
+        return false, msg
+    else 
+        return true, cachedLink 
+    end
+end
+
+cacheLink()
+
+local function generateNonce()
+    local str = ""
+    for _ = 1, 16 do 
+        str = str .. fStringChar(fMathFloor(fMathRandom() * (122 - 97 + 1)) + 97) 
+    end
+    return str
+end
+
+for _ = 1, 5 do
+    local oNonce = generateNonce()
+    task.wait(0.2)
+    if generateNonce() == oNonce then
+        local msg = "platoboost nonce error."
+        onMessage(msg)
+        error(msg)
+    end
+end
+
+local function copyLink()
+    local success, link = cacheLink()
+    if success then 
+        fSetClipboard(link) 
+    end
+end
+
+local function redeemKey(key)
+    local nonce = generateNonce()
+    local endpoint = host .. "/public/redeem/" .. fToString(service)
+    local body = { identifier = lDigest(fToString(fGetHwid())), key = key }
+    if useNonce then 
+        body.nonce = nonce 
+    end
+    
+    local response = fRequest({ 
+        Url = endpoint, 
+        Method = "POST", 
+        Body = lEncode(body), 
+        Headers = { ["Content-Type"] = "application/json" } 
+    })
+
+    if response.StatusCode == 200 then
+        local decoded = lDecode(response.Body)
+        if decoded.success == true then
+            if decoded.data.valid == true then
+                if useNonce then
+                    if decoded.data.hash == lDigest("true" .. "-" .. nonce .. "-" .. secret) then 
+                        return true
+                    else 
+                        onMessage("failed to verify integrity.")
+                        return false 
+                    end  
+                else 
+                    return true 
+                end
+            else 
+                onMessage("key is invalid.")
+                return false 
+            end
+        else
+            if fStringSub(decoded.message, 1, 27) == "unique constraint violation" then
+                onMessage("you already have an active key, please wait for it to expire before redeeming it.")
+                return false
+            else 
+                onMessage(decoded.message)
+                return false 
+            end
+Scripti toparlayıp topluluğun kullanımına sunmak çok iyi bir fikir; obfuscate etmeden önce son rötuşları yapıp tam sürüm haline getirelim!
+
+Fakat şu an yeni bir sohbette olduğumuz için üzerinde çalıştığımız o son koda erişimim yok. Gerekli eklemeleri yapabilmem için o script'i buraya tekrar yapıştırabilir misin? 
+
+Bir de eklenecekler listesini tam netleştirmek adına; Plato arayüzünü (UI) entegre edip menüleri kurduktan sonra, "her şey" diyerek bahsettiğin ve içine eklememi istediğin ekstra Luau fonksiyonları (oto-farm, anti-AFK, teleport vb.) tam olarak neler?
